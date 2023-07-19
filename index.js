@@ -5,6 +5,7 @@ import { DateTime } from './modules/luxon.js';
 const form = document.querySelector('.add-form');
 const bookList = document.querySelector('.book-list');
 const date = document.getElementById('date');
+const notification = document.querySelector('.notification');
 const stringDate = {
   month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true, second: 'numeric',
 };
@@ -22,6 +23,15 @@ form.addEventListener('submit', (event) => {
 
   storage.createBook(title.value, author.value);
   storage.displayData();
+
+  title.value = ''; // Reset the title input
+  author.value = ''; // Reset the author input
+
+  notification.textContent = 'Book added successfully!'; // Set the notification message
+  notification.classList.remove('hide'); // Show the notification
+  setTimeout(() => {
+    notification.classList.add('hide'); // Hide the notification after 3 seconds
+  }, 3000);
 });
 
 bookList.addEventListener('click', (event) => {
